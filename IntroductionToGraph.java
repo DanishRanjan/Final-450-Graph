@@ -17,7 +17,7 @@ static class Edge{
 	
 public static void main(String args[]) throws Exception {
 	int vertices = 7; //0, 1, 2, 3, 4, 5, 6
-	ArrayList<Edge>[] graph = new ArrayList<Edge>[7];
+	ArrayList<Edge>[] graph = new ArrayList[7];
 	for(int i = 0 ; i<vertices;i++) {
 		graph[i] = new ArrayList<Edge>(); //empty arrayList in front of every array 
 	}
@@ -44,6 +44,8 @@ public static void main(String args[]) throws Exception {
 	
 	graph[6].add(new Edge(6, 5, 3));
 	graph[6].add(new Edge(6, 4, 8));
+	
+	
 	
 }
 }
