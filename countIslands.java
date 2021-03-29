@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class countIslands {
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -31,15 +31,15 @@ public class Main {
 	}
 
 	public static void drawTreeForComponent(int[][] arr, int i, int j, boolean[][] visited) {
-		if(i< 0 || j<0 || i >= arr.length || j >= arr[0].length || arr[i][j] ==1 || visited[i][j] == true) {
+		if (i < 0 || j < 0 || i >= arr.length || j >= arr[0].length || arr[i][j] == 1 || visited[i][j] == true) {
 			return;
 		}
-		
+
 		visited[i][j] = true;
-		drawTreeForComponent(arr, i-1, j, visited);//north
-		drawTreeForComponent(arr, i, j+1, visited);//east
-		drawTreeForComponent(arr, i+1, j, visited);//south
-		drawTreeForComponent(arr, i, j-1, visited);//west
+		drawTreeForComponent(arr, i - 1, j, visited);// north
+		drawTreeForComponent(arr, i, j + 1, visited);// east
+		drawTreeForComponent(arr, i + 1, j, visited);// south
+		drawTreeForComponent(arr, i, j - 1, visited);// west
 	}
 
 }
