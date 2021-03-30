@@ -1,0 +1,87 @@
+import java.io.*;
+import java.util.*;
+
+public class isBipartite_Graph {
+	static class Edge {
+		int src;
+		int nbr;
+		int wt;
+
+		Edge(int src, int nbr, int wt) {
+			this.src = src;
+			this.nbr = nbr;
+			this.wt = wt;
+		}
+	}
+
+	public static class Pair {
+		int vertex;
+		String psf;
+		int level;
+
+		Pair(int vertex, String psf, int level) {
+			this.vertex = vertex;
+			this.psf = psf;
+			this.level = level;
+		}
+	}
+
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		int vtces = Integer.parseInt(br.readLine());
+		ArrayList<Edge>[] graph = new ArrayList[vtces];
+		for (int i = 0; i < vtces; i++) {
+			graph[i] = new ArrayList<>();
+		}
+
+		int edges = Integer.parseInt(br.readLine());
+		for (int i = 0; i < edges; i++) {
+			String[] parts = br.readLine().split(" ");
+			int v1 = Integer.parseInt(parts[0]);
+			int v2 = Integer.parseInt(parts[1]);
+			int wt = Integer.parseInt(parts[2]);
+			graph[v1].add(new Edge(v1, v2, wt));
+			graph[v2].add(new Edge(v2, v1, wt));
+		}
+
+		// write your code here
+		int[] visited = new int[vtces];
+		Arrays.fill(visited, -1);
+		for (int v = 0; v < vtces; v++) {
+			if (visited[v] == -1) {
+				boolean isComponentBipartite = checkComponentforBipartiteness(graph, v, visited);
+				if (isComponentBipartite == false) {
+					System.out.println(false);
+					return;
+				}
+			}
+		}
+		System.out.println(true);
+	}
+
+	public static boolean checkComponentforBipartiteness(ArrayList<Edge>[] graph, int src, int[] visited) {
+		ArrayDeque<Pair> queue = new ArrayDeque<>();
+		queue.add(new Pair(src,src+"",0));
+		while(queue.size()>0) {
+			Pair remove = queue.remove();
+			if(visited[remove.vertex] != -1) {
+				if(remove.level != visited[remove.vertex]) {
+					return false;
+				}
+			}else {
+				visited[remove.vertex] = remove.level;
+			}
+			
+			for(Edge e : graph[remove.vertex]) {
+				if(visited[e.nbr] == -1) {
+					queue.add(new Pair(e.nbr, remove.psf+e.nbr,remove.level+1));
+				}
+			}
+			
+		}
+		return true;
+		
+	}
+
+}
